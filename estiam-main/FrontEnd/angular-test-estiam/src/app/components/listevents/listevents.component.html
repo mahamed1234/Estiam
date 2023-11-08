@@ -1,0 +1,29 @@
+<app-top-bar></app-top-bar>
+<p-toast></p-toast>
+<span class="p-input-icon-right">
+    <i class="pi pi-search"></i>
+    <input pInputText type="text" [(ngModel)]="searchKeyword"(input)="applyFilter()" placeholder="Search Events" [style]="{'width': '100%'}"   />
+  </span>
+<p-table [value]="events" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true"
+[rows]="5">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Title</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-event>
+        <tr>
+            <td>{{ event.title }}</td>
+            <td>{{ event.start_date  }}</td>
+            <td>{{ event.end_date | date }}</td>
+            <td>{{ event.description }}</td>
+            <td>  <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editevent()"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEvent(event)"></button></td>
+        </tr>
+        
+    </ng-template>
+</p-table>

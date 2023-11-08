@@ -1,0 +1,22 @@
+<app-top-bar></app-top-bar>
+<br>
+<br>
+<div class="p-fluid change-password-container">
+    <h2>Change Password</h2>
+    <p-toast></p-toast>
+<form [formGroup]="form" (ngSubmit)="changePassword()">
+    <div class="form-group" [ngClass]="{'has-error': form.controls['oldPassword'].invalid && form.controls['oldPassword'].touched}">
+      <label for="oldPassword">Old Password</label>
+      <input type="password" name="oldPassword" class="form-control" id="oldPassword" placeholder="Old Password" formControlName="oldPassword" />
+      <small *ngIf="form.controls['oldPassword'].hasError('required') && form.controls['oldPassword'].touched" class="text-danger">Old Password is required</small>
+    </div>
+    <div class="form-group" [ngClass]="{'has-error': form.controls['newPassword'].invalid && form.controls['newPassword'].touched}">
+      <label for="newPassword">New Password</label>
+      <input type="password" name="newPassword" class="form-control" id="newPassword" placeholder="New Password" formControlName="newPassword" />
+      <small *ngIf="form.controls['newPassword'].hasError('required') && form.controls['newPassword'].touched" class="text-danger">New Password is required</small>
+    </div>
+    <div class="form-group text-center">
+      <button type="submit" class="btn btn-default" [disabled]="form.invalid">Change Password</button>
+    </div>
+  </form>
+  
