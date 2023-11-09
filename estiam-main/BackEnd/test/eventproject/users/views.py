@@ -34,6 +34,7 @@ class CustomTokenObtainPairView(APIView):
         if user.check_password(password):
             refresh = RefreshToken.for_user(user)
             return Response({
+                 'user_id': user.id,
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
             })

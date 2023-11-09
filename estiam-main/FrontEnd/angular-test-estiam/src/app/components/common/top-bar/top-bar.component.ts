@@ -24,7 +24,7 @@ export class TopBarComponent implements OnInit {
                     label: 'Profile',
                     icon: 'pi pi-fw pi-user',
                     command:()=>{
-                        this.router.navigate(['/changepasswd/']);
+                        this.router.navigate(['/editprofile/']);
                     }
     
                 },
@@ -55,7 +55,7 @@ export class TopBarComponent implements OnInit {
         }
 
     navigateToProfile(){
-        this.router.navigate(['/changepasswd'])
+        this.router.navigate(['/editprofile'])
     }    
 
     logoutData() {

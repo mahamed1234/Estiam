@@ -5,9 +5,10 @@ import {Routes, RouterModule} from "@angular/router";
 import {UserViewComponent} from "./components/user-view/user-view.component";
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { LoginComponent } from './components/login/login.component';
-import { ChangepasswdComponent } from './components/changepasswd/changepasswd.component';
+
 import { ListeventsComponent } from './components/listevents/listevents.component';
 import { AuthGuard } from './auth.guard';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 const routes: Routes = [
     {
@@ -31,15 +32,17 @@ const routes: Routes = [
         component: CalendarComponent
     },
 
-    {
-        path: 'changepasswd',
-        component:ChangepasswdComponent
-
-    },
+   
     {
         path: 'listevents',
         canActivate: [AuthGuard],
         component:ListeventsComponent
+
+    },
+    {
+        path: 'editprofile',
+        canActivate: [AuthGuard],
+        component:EditProfileComponent
 
     },
     ];

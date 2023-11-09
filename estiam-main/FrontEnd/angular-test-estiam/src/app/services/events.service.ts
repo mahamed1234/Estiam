@@ -16,22 +16,23 @@ export class EventsService {
   constructor(private http: HttpClient,private  userService : UserService) {}
 
   authToken = this.userService.getUserInfo();
-  getEvents(): Observable<any>{
-    return this.http.get(`${this.apiUrl}/`,{
-      headers: new HttpHeaders().append("Authorization",`Bearer ${this.authToken}`),
-    })
+  async getEvents(): Promise<Observable<any>> {
+    const authToken = await this.userService.getUserInfo();
+    const headers = new HttpHeaders().append("Authorization", `Bearer ${authToken}`);
+    return this.http.get(`${this.apiUrl}/`, { headers });
   }
-  addEvent(eventData: any): Observable<any> {
+
+  async addEvent(eventData: any): Promise<Observable<any>> {
     return this.http.post(`${this.apiUrl}/`, eventData, {
       headers: new HttpHeaders().append("Authorization", `Bearer ${this.authToken}`),
     });
   }
-  editEvent(eventId: number, eventData: any): Observable<any> {
+   async editEvent(eventId: number, eventData: any): Promise<Observable<any>> {
     return this.http.put(`${this.apiUrl}/${eventId}/`, eventData, {
       headers: new HttpHeaders().append("Authorization", `Bearer ${this.authToken}`),
     });
   }
-  deleteEvent(eventId: number): Observable<any> {
+  async deleteEvent(eventId: number): Promise<Observable<any>> {
     const url = `${this.apiUrl}/${eventId}/`;
     console.log('Delete URL:', url);
 

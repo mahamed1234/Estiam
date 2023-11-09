@@ -1,61 +1,50 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {UsersService} from "../../services/users.service";
-
-
+import { Component, OnInit } from '@angular/core';
+import { UsersService } from '../../services/users.service';
 
 @Component({
-    selector: 'app-user-view',
-    templateUrl: './user-view.component.html',
-    styleUrls: ['./user-view.component.css']
+  selector: 'app-user-view',
+  templateUrl: './user-view.component.html',
+  styleUrls: ['./user-view.component.css'],
 })
-
 export class UserViewComponent implements OnInit {
-    users : any= [];
-    body : any = {};
+  users: any = [];
+  originalUsers: any[] = [];
+  displayedColumns: string[] = ['username', 'email'];
+  searchKeyword: string = '';
 
-    isUrlColumnVisible: boolean = false;
-    displayedColumns: string[] = ['username', 'email'];
-    searchKeyword: string = ''; // Add a property for the search keyword
-    filteredUsers:  []; 
-    originalUsers:  [];
-    
-    constructor(private userService: UsersService) {
+  constructor(private userService: UsersService) {}
+
+  ngOnInit(): void {
+    this.userService.getUsers().subscribe((data: any) => {
+      this.users = this.mapUsers(data.results);
+      this.originalUsers = [...this.users]; // Make a copy of the original users
+    });
+  }
+
+  toggleUrlColumnVisibility() {
+    // Implement if needed
+  }
+
+  applyFilter() {
+    // Reset to the original users when the searchKeyword is empty
+    if (!this.searchKeyword) {
+      this.users = [...this.originalUsers];
+    } else {
+      // Apply the filter when the searchKeyword is not empty
+      this.users = this.originalUsers.filter((user) => {
+        return (
+          user.username.toLowerCase().includes(this.searchKeyword.toLowerCase()) ||
+          user.email.toLowerCase().includes(this.searchKeyword.toLowerCase())
+        );
+      });
     }
+  }
 
-    ngOnInit(): void {
-        this.userService.getUsers().subscribe((data: any) => {
-            this.users = data.results;
-          
-        });
-    }
-    
-    toggleUrlColumnVisibility() {
-        this.isUrlColumnVisible = !this.isUrlColumnVisible;
-      }
-      applyFilter() {
-        // Apply the filter when the searchKeyword is not empty
-        if (this.searchKeyword) {
-          this.users = this.users.filter((user: { username: string; email: string }) => {
-            return (
-              user.username.toLowerCase().includes(this.searchKeyword.toLowerCase()) ||
-              user.email.toLowerCase().includes(this.searchKeyword.toLowerCase())
-            );
-          });
-        } else {
-          // Reset to the original users when searchKeyword is empty
-        
-          // You should fetch the original users from your service here
-
-          // For demonstration, we'll assume you have a method getUsers() to fetch the users
-          this.users = this.originalUsers;
-        }
-      }
-    
-      // For demonstration, simulate fetching users from a service
-      getUsers() {
-        // Replace this with the actual service call to fetch users
-        this.users = [
-         
-        ];
-      }
+  mapUsers(users: any[]): any[] {
+    return users.map((user) => {
+      // Add the 'role' property based on 'is_superuser'
+      user.role = user.is_superuser ? 'Admin' : 'User';
+      return user;
+    });
+  }
 }

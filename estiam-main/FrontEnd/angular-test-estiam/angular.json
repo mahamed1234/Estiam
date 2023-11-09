@@ -29,8 +29,6 @@
               "src/custom-theme.scss",
               "src/styles.css",
               "./node_modules/@mobiscroll/angular/dist/css/mobiscroll.min.css"
-
-
             ],
             "scripts": []
           },
@@ -98,9 +96,6 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeicons/primeicons.css"
             ],
-              
-              
-      
             "scripts": []
           }
         }

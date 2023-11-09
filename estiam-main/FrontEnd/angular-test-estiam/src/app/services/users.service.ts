@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable, map} from "rxjs";
-
+import { HttpClient } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +14,31 @@ export class UsersService {
   getUsers(): Observable<[]> {
     return this.http.get<[]>(this.apiUrl);
   }
-  changePassword(oldPassword: string, newPassword: string): Observable<any> {
-    // Define the request body, typically in JSON format
-    const request = {
-      oldPassword,
-      newPassword,
-    };
 
-    // Send an HTTP POST request to your API to change the password
+  getUser(userId: string): Observable<any> {
+    const url = `${this.apiUrl}${userId}/`;
+    return this.http.get(url).pipe(
+      catchError((error) => {
+        console.error('Get User Error:', error);
+        return throwError(error);
+      })
+    );
+  }
 
-   return this.http.put(`${this.apiUrl}`, request).pipe(map((responseData: any) => {
-    // If successful, store the response data into localStorage
-    alert("Your Password has been changed successfully");
-    return responseData;
-   }
-   ));
-}
+  editProfile(username: string, email: string, password: string): Observable<any> {
+    const user_id = localStorage.getItem('user_id');
+    if (!user_id) {
+      return throwError('User ID not found in local storage');
+    }
+
+    const url = `${this.apiUrl}${user_id}/`;
+
+    // You may need to adjust the actual API endpoint and request method
+    return this.http.put(url, { username, email, password }).pipe(
+      catchError((error) => {
+        console.error('Edit Profile Error:', error);
+        return throwError(error);
+      })
+    );
+  }
 }

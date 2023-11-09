@@ -29,11 +29,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 import { MenubarModule } from 'primeng/menubar';
-import { ChangepasswdComponent } from './components/changepasswd/changepasswd.component';
 import { DatePipe } from '@angular/common';
 import { ListeventsComponent } from './components/listevents/listevents.component';
 import { TableModule } from 'primeng/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -42,14 +42,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         SpinnerComponent,
         CalendarComponent,
         LoginComponent,
-        ChangepasswdComponent,
-        ListeventsComponent
+        ListeventsComponent,
+        EditProfileComponent
        
         
         
     ],
     imports: [  
-    MbscModule, 
+    MbscModule,   
         BrowserModule,
         DatePipe,
         MenubarModule,
@@ -72,7 +72,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
         MatIconModule,
         MatProgressSpinnerModule,
         HttpClientJsonpModule,
-        MbscModule,
         MatCardModule,
         NgbModule,
         ToastModule,

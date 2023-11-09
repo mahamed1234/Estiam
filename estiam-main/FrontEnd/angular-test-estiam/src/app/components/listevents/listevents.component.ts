@@ -1,11 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventsService } from '../../services/events.service';
 import { ConfirmationService } from 'primeng/api';
-import { MbscCalendarEvent, MbscPopup } from '@mobiscroll/angular';
-import { FormBuilder ,FormGroup} from '@angular/forms';
+import { MbscCalendarEvent } from '@mobiscroll/angular';
+import { FormBuilder ,} from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-listevents',
@@ -15,19 +13,23 @@ import { Router } from '@angular/router';
 })
 export class ListeventsComponent implements OnInit {
    
-  @ViewChild('popup', { static: false })
-  popup!: MbscPopup;
+  
   
   events: any[] = [];
   searchKeyword: string = ''; // Add a property for the search keyword
   originalEvents: any[] = [];
-  event!: number;
-  myEvents: MbscCalendarEvent[] = [];
-  tempEvent!: MbscCalendarEvent;
-  popupEventTitle: string | undefined;
-  popupEventDescription='';
+  myEvents: MbscCalendarEvent[] = []
+  editMode: boolean = false;
+  event: any;
+
+ 
   
-  constructor(private messageService: MessageService,private readonly router: Router,private eventsService: EventsService,private confirmationService: ConfirmationService,private formBuilder: FormBuilder,private readonly userservice: UserService,) {
+  constructor(private messageService: MessageService,
+    private readonly router: Router,
+    private eventsService: EventsService,
+    private confirmationService: ConfirmationService,
+    private formBuilder: FormBuilder,
+    ) {
     
 
   }
@@ -39,8 +41,8 @@ export class ListeventsComponent implements OnInit {
   }
   
 
-  getEvents() {
-    this.eventsService.getEvents().subscribe((data: any) => {
+  async getEvents() {
+    (await this.eventsService.getEvents()).subscribe((data: any) => {
       this.events = data.results;
       this.originalEvents = this.events.slice();
 
@@ -60,11 +62,11 @@ export class ListeventsComponent implements OnInit {
       this.events = this.originalEvents;
     }
   }
-  deleteEvent(event: MbscCalendarEvent): void {
+  async deleteEvent(event: MbscCalendarEvent): Promise<void> {
     const eventId = Number(event.id);
     if (!isNaN(eventId)) {
       if (window.confirm('Are you sure you want to delete this event?')) {
-        this.eventsService.deleteEvent(eventId).subscribe((response) => {
+        (await this.eventsService.deleteEvent(eventId)).subscribe((response) => {
           console.log('Event deleted:', response);
           this.myEvents = this.myEvents.filter((item) => item.id !== eventId);
           this.showSuccessMessage('Event deleted');
@@ -86,10 +88,29 @@ export class ListeventsComponent implements OnInit {
     });
   }
 
-  editevent(){}
+  async editEvent(event: MbscCalendarEvent): Promise<void> {
+    this.editMode = true;
+    this.event = event;
+  }
 
+async saveEvent(): Promise<void> {
+  if (this.event) {
+    const eventData = {
+      title: this.event.title,
+      description: this.event.description,
+      start_date: this.event.start_date,
+      end_date: this.event.end_date,
+    };
+    (await this.eventsService.editEvent(Number(this.event.id), eventData)).subscribe((response) => {
+      console.log(eventData)
+      Object.assign(this.event, eventData);
+      this.getEvents();
+      this.editMode = false; // Set editMode to false after saving changes
+    });
+  }
 }
 
 
 
 
+}

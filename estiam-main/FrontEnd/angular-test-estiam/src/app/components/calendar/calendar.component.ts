@@ -144,11 +144,12 @@ export class CalendarComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    
     this.getEvents();
   }
 
-  getEvents() {
-    this.eventsService.getEvents().subscribe((data) => {
+  async getEvents() {
+    (await this.eventsService.getEvents()).subscribe((data) => {
       this.body = data;
        console.log(this.body);
       this.events = this.body.results;
@@ -172,7 +173,7 @@ export class CalendarComponent implements OnInit{
     this.popupEventDates = [event.start, event.end];
   }
 
-  saveEvent(): void {
+  async saveEvent(): Promise<void> {
     const eventData = {
       title: this.popupEventTitle,
       description: this.popupEventDescription,
@@ -181,7 +182,7 @@ export class CalendarComponent implements OnInit{
     };
 
     if (this.isEdit) {
-      this.eventsService.editEvent(Number(this.tempEvent.id), eventData).subscribe((response) => {
+      (await this.eventsService.editEvent(Number(this.tempEvent.id), eventData)).subscribe((response) => {
       
       this.getEvents();
       
@@ -190,15 +191,15 @@ export class CalendarComponent implements OnInit{
     )}
 
     else {
-      this.eventsService.addEvent(eventData).subscribe((response) => {
+      (await this.eventsService.addEvent(eventData)).subscribe((response) => {
         this.getEvents();
         this.popup.close();
       });
     }
 }
 
-  deleteEvent(event: MbscCalendarEvent): void {
-    this.eventsService.deleteEvent(Number(event.id)).subscribe((response) => {
+  async deleteEvent(event: MbscCalendarEvent): Promise<void> {
+    (await this.eventsService.deleteEvent(Number(event.id))).subscribe((response) => {
       this.myEvents = this.myEvents.filter((item) => item.id !== event.id);
       this.notify.snackbar({
         button: {

@@ -49,10 +49,11 @@ export class LoginComponent implements OnInit {
         (response: HttpResponse<any>) => {
           const token = response.body.access; // Access the access token from the response
           console.log(token);
+          console.log(response)
           if (response.status === 200) { // Check for the correct status code
             this.userservice.setAuth(token);
-            localStorage.setItem('user',JSON.stringify(this.email))
-            this.router.navigate(['calendar']);
+            
+            this.router.navigate(['/calendar']);
           } else {
             // Handle authentication errors here
           this.showError();
