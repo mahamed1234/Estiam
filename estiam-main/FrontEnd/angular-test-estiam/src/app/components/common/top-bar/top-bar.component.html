@@ -1,0 +1,24 @@
+<p-toolbar>
+  <div class="ui-toolbar-group-left">
+    <button pButton type="button" (click)="navigateToHome()">
+      <i class="pi pi-home"></i>
+    </button>
+    <button pButton type="button" (click)="navigateToUsers()">
+      <i class="pi pi-users"></i>
+    </button>
+    <button pButton type="button" (click)="navigateToCalendar()">
+      <i class="pi pi-calendar"></i>
+    </button>
+    <button pButton type="button" (click)="navigateTolistEvents()">
+      <i class="pi pi-id-card"></i>
+    </button>
+  </div>
+ 
+    <div #topbarmenu class="layout-topbar-menu"   >
+      <div class="mx-4">
+          <p-menubar [model]="items"></p-menubar>
+      </div>
+      
+  </div>
+
+  </p-toolbar>

@@ -1,0 +1,48 @@
+<app-top-bar></app-top-bar>
+<br>
+<p-toast></p-toast>
+<h3><b>List Events</b></h3>
+<br>
+
+
+<span class="p-input-icon-right">
+  <i class="pi pi-search"></i>
+  <input pInputText type="text" [(ngModel)]="searchKeyword" (input)="applyFilter()" placeholder="Search Events" [style]="{'width': '100%'}" />
+</span>
+<p-table [value]="events" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Title</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Description</th>
+      <th>Action</th>
+    </tr>
+  </ng-template>
+  <br>
+  <ng-template pTemplate="body" let-event>
+    <tr>
+      <td>
+        <span *ngIf="!editMode">{{ event.title }}</span>
+        <input *ngIf="editMode" pInputText type="text" [(ngModel)]="event.title" />
+      </td>
+      <td>
+        <span *ngIf="!editMode">{{ event.start_date }}</span>
+        <input *ngIf="editMode" pInputText type="text" [(ngModel)]="event.start_date" />
+      </td>
+      <td>
+        <span *ngIf="!editMode">{{ event.end_date | date }}</span>
+        <input *ngIf="editMode" pInputText type="text" [(ngModel)]="event.end_date" />
+      </td>
+      <td>
+        <span *ngIf="!editMode">{{ event.description }}</span>
+        <input *ngIf="editMode" pInputText type="text" [(ngModel)]="event.description" />
+      </td>
+      <td>
+        <button *ngIf="!editMode" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editEvent(event)"></button>
+        <button *ngIf="editMode" pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success mr-2" (click)="saveEvent()"></button>
+        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEvent(event)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -1,0 +1,44 @@
+/* Style the toolbar */
+.ui-toolbar {
+    background-color: #2196F3; /* Change the background color to your preference */
+    color: #fff; /* Text color */
+}
+
+/* Style the left group */
+.ui-toolbar .ui-toolbar-group-left {
+    display: flex;
+    align-items: center;
+    margin-right: 16px; /* Add some spacing between left and right groups */
+}
+
+/* Style the buttons */
+.ui-toolbar button {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    color: #fff; /* Button text color */
+    margin: 0 8px; /* Add spacing between buttons */
+}
+
+/* Style the icons */
+.ui-toolbar button i {
+    font-size: 20px;
+    margin-right: 8px; /* Add spacing between icon and text */
+}
+
+/* Style the right group */
+.ui-toolbar .ui-toolbar-group-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Push it to the right side */
+}
+
+/* Style the title */
+.ui-toolbar .app-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 16px; /* Add spacing between title and buttons */
+}
+
+  
+  

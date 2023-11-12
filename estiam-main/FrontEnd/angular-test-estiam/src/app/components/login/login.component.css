@@ -1,0 +1,45 @@
+@import 'primeng/resources/primeng.min.css';
+@import 'primeng/resources/themes/saga-blue/theme.css';
+@import 'primeng/resources/primeng.min.css';
+.formulaire{
+  text-align: center;
+}
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.navbar{
+  background-color: blue;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+.form-outline p{
+  color: red;
+}
+h4{
+text-align: center;
+color: rgb(4, 4, 4);   
+font-weight: bold;
+
+}
+
+::placeholder{
+  color :black;
+
+}
+.form-label{
+  color: rgb(13, 4, 62);
+  font-weight: bold;
+}
+/* Define a custom class for error toast messages */
+
+
