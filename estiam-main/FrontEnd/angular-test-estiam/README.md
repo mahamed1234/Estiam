@@ -55,14 +55,36 @@ Accédez à l'application dans votre navigateur à l'adresse http://localhost:42
 
 
 ## Utilisation
-
 Pour utiliser le projet, suivez ces étapes :
-Démarrage de l'application :
 
-ng serve
-Accédez à l'application dans votre navigateur à l'adresse http://localhost:4200/.
+# partie backend :
+1. Ouvrez une nouvelle fenêtre de terminal et accédez au répertoire du projet.
+2. Exécutez la commande `python manage.py runserver` pour démarrer l'application en mode développement.
+3. Accédez à l'application dans votre navigateur à l'adresse http://localhost:8000/. Vous
 
-Vous serez redirigé vers la page de connexion. Entrez vos identifiants pour accéder à l'application .
+# partie frontend:
+Pour utiliser le projet, suivez ces étapes :
+1. Ouvrez une nouvelle fenêtre de terminal et accédez au répertoire du projet.
+2. Exécutez la commande `ng serve` pour démarrer l'application en mode développement.
+3. Accédez à l'application dans votre navigateur à l'adresse http://localhost:4200/. Vous
+devriez maintenant être capable d'afficher l'interface utilisateur de l'application.
+
+
+## register 
+
+creer votre compte :
+Example
+username : test@gmail.com
+password : password
+
+## login
+
+Example
+connectez vous a votre compte :
+username : test@gmail.com
+password : password
+
+## dashboard
 
 Une fois connecté, vous pouvez utiliser les fonctionnalités suivantes :
 
@@ -72,6 +94,18 @@ Cliquez sur un événement existant pour le modifier.
 Cliquez sur l'icône de la croix à côté d'un événement pour le supprimer.
 
 ## Fonctionnalités
+
+Le projet est composé des éléments suivants :
+Register :
+
+Enregistrement d'un utilisateur
+
+Login :
+Connexion d'un utilisateur
+
+Logout :
+Deconnexion d'un utilisateur
+
 
 Authentification : L'application propose une page de connexion pour accéder à l'agenda.
 

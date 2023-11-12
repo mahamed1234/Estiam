@@ -19,16 +19,18 @@ export class LoginComponent implements OnInit {
     form: FormGroup;
     NUMERIC_PATTREN = '^-?[0-9]\\d*(\\.\\d{1,2})?$';
     email_Pattren = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    fb: any;
+    fb: FormBuilder;  // Correct type for fb
+
     messages1: Message[] | undefined;
     constructor(
         private authservice: AuthService,
         private readonly router: Router,
         private readonly userservice: UserService,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: FormBuilder,  // Ensure formBuilder is properly injected
         private messageService: MessageService
     ) {
-        this.form = this.formBuilder.group({
+        this.fb = formBuilder;  // Assign formBuilder to fb
+        this.form = this.fb.group({
             email: [
                 '',
                 [Validators.required, Validators.pattern(this.email_Pattren)],
@@ -41,20 +43,12 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.loadForm();
-        this.messages1 = [
-            {
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Message Content',
-            },
-            { severity: 'info', summary: 'Info', detail: 'Message Content' },
-        ];
+      this.loadForm();
     }
     loadForm() {
         this.form = this.fb.group({
             email: ['', Validators.pattern(this.email_Pattren)],
-            Password: ['', Validators.pattern(this.NUMERIC_PATTREN)],
+            password: ['', Validators.pattern(this.NUMERIC_PATTREN)],  // Corrected field name to 'password'
         });
     }
     saved() {

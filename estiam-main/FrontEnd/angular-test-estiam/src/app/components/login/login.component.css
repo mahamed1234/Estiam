@@ -4,6 +4,9 @@
 .formulaire{
   text-align: center;
 }
+.main-content{
+  background-color: white !important;
+}
 .divider:after,
 .divider:before {
 content: "";
